@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Registre des protocoles officiels du Cabinet O5-IV">
+<title>PROTOCOLE OFFICIEL - CABINET O5-IV</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@500;600;700&family=Source+Sans+3:wght@400;500;600&display=swap">
+<style>
+:root{--bg:#f4f2ee;--paper:#fbfaf7;--gold:#8a6a22;--gold-l:#c9a85c;--ink:#2e3135;--mute:#6b6f74;--red:#7a1a1a;--black:#16171a;--line:#ddd7ca;
+--serif:"EB Garamond",Georgia,"Times New Roman",serif;--sans:"Source Sans 3",system-ui,-apple-system,"Segoe UI",sans-serif}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:84px}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.65 var(--sans)}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+/* NAV */
+.nav{position:sticky;top:0;z-index:50;background:rgba(251,250,247,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);box-shadow:0 1px 10px rgba(0,0,0,.04)}
+.nav-in{max-width:1080px;margin:0 auto;padding:0 24px;height:64px;display:flex;align-items:center;justify-content:space-between}
+.brand{font:700 20px var(--serif);letter-spacing:.14em;color:var(--black);text-decoration:none;display:flex;align-items:center;gap:10px}
+.brand svg{width:22px;height:22px;stroke:var(--red)}
+.menu{display:flex;gap:6px;list-style:none;margin:0;padding:0}
+.menu a{display:block;padding:8px 14px;font-size:13px;font-weight:600;letter-spacing:.12em;text-decoration:none;color:var(--ink);border-bottom:2px solid transparent;transition:.25s}
+.menu a:hover,.menu a.on{color:var(--gold);border-color:var(--gold)}
+.burger{display:none;background:none;border:1px solid var(--line);border-radius:4px;padding:8px 10px;cursor:pointer}
+.burger span{display:block;width:20px;height:2px;background:var(--black);margin:4px 0;transition:.25s}
+.burger[aria-expanded=true] span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.burger[aria-expanded=true] span:nth-child(2){opacity:0}
+.burger[aria-expanded=true] span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+/* HERO */
+.hero{text-align:center;padding:96px 24px 72px;background:linear-gradient(var(--paper),var(--bg));border-bottom:1px solid var(--line)}
+.seal{width:64px;height:64px;margin:0 auto 24px;stroke:var(--gold);fill:none;stroke-width:1.2}
+h1{font:700 clamp(28px,5.2vw,52px)/1.15 var(--serif);letter-spacing:.06em;color:var(--gold);margin:0 auto;max-width:900px}
+.badges{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:28px}
+.badge{font:600 13px var(--sans);letter-spacing:.2em;padding:8px 18px;border:2px solid;border-radius:3px}
+.b1{color:var(--red);border-color:var(--red);background:rgba(122,26,26,.05);transform:rotate(-1.2deg)}
+.b2{color:var(--paper);border-color:var(--black);background:var(--black)}
+.lead{max-width:640px;margin:32px auto 0;color:var(--mute)}
+/* LAYOUT */
+main{max-width:860px;margin:0 auto;padding:0 24px}
+section.blk{padding:72px 0 8px}
+h2.t{font:700 26px var(--serif);letter-spacing:.14em;color:var(--gold);text-align:center;margin:0 0 8px}
+.rule{height:1px;background:linear-gradient(90deg,transparent,var(--gold-l),transparent);margin:16px auto 36px;max-width:420px}
+/* SOMMAIRE */
+.toc{list-style:none;margin:0;padding:0;background:var(--paper);border:1px solid var(--line);box-shadow:0 6px 24px rgba(0,0,0,.04)}
+.toc li+li{border-top:1px solid var(--line)}
+.toc a{display:flex;justify-content:space-between;gap:12px;padding:12px 22px;text-decoration:none;font-size:15px;letter-spacing:.05em;transition:.2s}
+.toc a:hover{background:#f1ece0;color:var(--gold);padding-left:28px}
+.toc small{color:var(--red);font-weight:600;white-space:nowrap}
+/* SEARCH */
+.search{position:relative;margin:0 0 24px}
+.search input{width:100%;padding:14px 44px 14px 46px;font:16px var(--sans);border:1px solid var(--line);background:var(--paper);color:var(--ink);border-radius:3px}
+.search input:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,168,92,.25)}
+.search svg.i{position:absolute;left:15px;top:14px;width:20px;height:20px;stroke:var(--mute);fill:none;stroke-width:1.6}
+.search input::-webkit-search-cancel-button{-webkit-appearance:none;appearance:none}
+.search button{position:absolute;right:6px;top:6px;border:0;background:none;font-size:22px;cursor:pointer;color:var(--mute);padding:4px 10px;display:none}
+.tools{display:flex;justify-content:space-between;align-items:center;margin:0 0 14px;font-size:14px;color:var(--mute)}
+.tools button{background:none;border:1px solid var(--line);padding:6px 12px;cursor:pointer;font:600 12px var(--sans);letter-spacing:.1em;color:var(--ink);border-radius:3px;transition:.2s}
+.tools button:hover{border-color:var(--gold);color:var(--gold)}
+.empty{display:none;text-align:center;padding:28px;color:var(--mute);border:1px dashed var(--line)}
+/* ACCORDÉON */
+.sec{background:var(--paper);border:1px solid var(--line);border-left:3px solid transparent;margin-bottom:12px;transition:border-color .3s,box-shadow .3s}
+.sec.open{border-left-color:var(--red);box-shadow:0 8px 28px rgba(0,0,0,.06)}
+.sec>h3{margin:0}
+.sec-btn{all:unset;box-sizing:border-box;cursor:pointer;width:100%;display:flex;align-items:center;gap:16px;padding:20px 22px}
+.sec-btn:focus-visible{outline:2px solid var(--gold);outline-offset:-3px}
+.sec-btn:hover{background:#f6f2e8}
+.sec-name{flex:1;font:700 18px/1.3 var(--serif);letter-spacing:.08em;color:var(--black)}
+.sec.open .sec-name{color:var(--gold)}
+.cnt{font-size:12px;color:var(--mute);letter-spacing:.06em}
+.chev{width:18px;height:18px;stroke:var(--gold);fill:none;stroke-width:2;transition:transform .35s}
+.sec.open .chev{transform:rotate(180deg)}
+.state{font-size:11px;font-weight:600;letter-spacing:.14em;color:var(--red);opacity:0;transition:.3s}
+.sec.open .state{opacity:1}
+.panel{display:grid;grid-template-rows:0fr;transition:grid-template-rows .4s ease}
+.sec.open .panel{grid-template-rows:1fr}
+.panel>div{overflow:hidden;visibility:hidden;transition:visibility .4s}
+.sec.open .panel>div{visibility:visible}
+.arts{padding:4px 22px 18px}
+.art{padding:22px 0;border-top:1px solid var(--line)}
+.art h4{margin:0 0 8px;font:600 17px var(--serif);letter-spacing:.04em;color:var(--black)}
+.art h4 b{color:var(--red);margin-right:8px;letter-spacing:.08em}
+.art p{margin:0;color:var(--ink)}
+mark{background:#ecd9a0;color:inherit;padding:0 2px}
+.hide{display:none!important}
+/* HIÉRARCHIE */
+.quote{font:italic 500 21px/1.5 var(--serif);text-align:center;color:var(--black);max-width:640px;margin:0 auto 40px;padding:0 8px}
+.ranks{list-style:none;margin:0;padding:0;counter-reset:r}
+.rank{position:relative;display:grid;grid-template-columns:56px 1fr;gap:6px 18px;padding:20px 22px;margin:0 auto 10px;background:var(--paper);border:1px solid var(--line);border-left:3px solid var(--gold-l);counter-increment:r;transition:transform .25s,box-shadow .25s}
+.rank:hover{transform:translateX(4px);box-shadow:0 6px 20px rgba(0,0,0,.06)}
+.rank::before{content:counter(r);grid-row:span 2;align-self:center;text-align:center;font:700 30px var(--serif);color:var(--gold)}
+.rank h3{margin:0;font:700 17px var(--serif);letter-spacing:.08em;color:var(--black)}
+.rank p{margin:0;font-size:15px;color:var(--mute)}
+.rank:first-child{border-left-color:var(--red);background:var(--black)}
+.rank:first-child h3{color:var(--gold-l)}.rank:first-child p{color:#bdb8aa}.rank:first-child::before{color:var(--gold-l)}
+@media(min-width:700px){.rank:nth-child(n){width:calc(100% - (var(--i,0)*22px));}
+.rank:nth-child(1){--i:0}.rank:nth-child(2){--i:0.5}.rank:nth-child(3){--i:1}.rank:nth-child(4){--i:1.5}.rank:nth-child(5){--i:2}.rank:nth-child(6){--i:2.5}.rank:nth-child(7){--i:3}.rank:nth-child(8){--i:3.5}.rank:nth-child(9){--i:4}}
+/* INFOS */
+.info{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+.card{background:var(--paper);border:1px solid var(--line);padding:22px}
+.card h3{margin:0 0 6px;font:700 16px var(--serif);letter-spacing:.1em;color:var(--gold)}
+.card p{margin:0;font-size:15px;color:var(--ink)}
+/* FOOTER */
+footer{margin-top:96px;background:var(--black);color:#bdb8aa;text-align:center;padding:56px 24px 64px}
+footer h2{font:700 20px var(--serif);letter-spacing:.2em;color:var(--gold-l);margin:0}
+footer p{margin:6px 0 0;font-size:13px;letter-spacing:.12em}
+footer .conf{margin-top:28px;padding-top:24px;border-top:1px solid #33353a;color:#e2c3c3}
+#top{position:fixed;right:20px;bottom:20px;width:46px;height:46px;border-radius:50%;border:1px solid var(--gold);background:var(--paper);cursor:pointer;opacity:0;pointer-events:none;transform:translateY(10px);transition:.3s;box-shadow:0 4px 14px rgba(0,0,0,.12)}
+#top.show{opacity:1;pointer-events:auto;transform:none}
+#top svg{width:18px;height:18px;stroke:var(--gold);fill:none;stroke-width:2}
+@media(max-width:760px){
+.burger{display:block}
+.menu{position:absolute;top:64px;left:0;right:0;flex-direction:column;background:var(--paper);border-bottom:1px solid var(--line);padding:8px 24px 16px;display:none}
+.menu.open{display:flex}
+.menu a{padding:12px 0;border-bottom:1px solid var(--line)}
+.hero{padding:64px 20px 48px}
+.sec-btn{padding:16px;gap:10px}.state{display:none}.sec-name{font-size:16px}
+.arts{padding:0 16px 12px}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<header class="nav">
+ <div class="nav-in">
+  <a class="brand" href="#accueil"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6z"/><path d="M8 12h8M12 8v8"/></svg>CABINET O5-IV</a>
+  <button class="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
+  <ul class="menu" id="menu">
+   <li><a href="#accueil">ACCUEIL</a></li>
+   <li><a href="#protocoles">PROTOCOLES</a></li>
+   <li><a href="#hierarchie">HIÉRARCHIE</a></li>
+   <li><a href="#informations">INFORMATIONS</a></li>
+  </ul>
+ </div>
+</header>
+
+<div class="hero" id="accueil">
+ <svg class="seal" viewBox="0 0 64 64"><circle cx="32" cy="32" r="29"/><circle cx="32" cy="32" r="23"/><path d="M32 12l17 9v13c0 10-7 16-17 19-10-3-17-9-17-19V21z"/><path d="M24 32h16M32 24v16"/></svg>
+ <h1>PROTOCOLE OFFICIEL - CABINET O5-IV</h1>
+ <div class="badges"><span class="badge b1">CONFIDENTIEL</span><span class="badge b2">DOCUMENT INTERNE</span></div>
+ <p class="lead">Registre des protocoles officiels régissant l'organisation, la conduite et les décisions du Cabinet O5-IV de la Fondation SCP.</p>
+</div>
+
+<main>
+ <section class="blk" id="sommaire">
+  <h2 class="t">SOMMAIRE</h2><div class="rule"></div>
+  <ol class="toc" id="toc" style="list-style:none"></ol>
+ </section>
+
+ <section class="blk" id="protocoles">
+  <h2 class="t">PROTOCOLES</h2><div class="rule"></div>
+  <div class="search">
+   <svg class="i" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+   <input id="q" type="search" placeholder="Rechercher un article (titre, numéro ou mot-clé)" aria-label="Rechercher un article" autocomplete="off">
+   <button id="qx" aria-label="Effacer la recherche">×</button>
+  </div>
+  <div class="tools"><span id="res">12 sections</span><span><button id="all">TOUT OUVRIR</button> <button id="none">TOUT FERMER</button></span></div>
+  <div id="list"></div>
+  <div class="empty" id="empty">Aucun article ne correspond à cette recherche.</div>
+ </section>
+
+ <section class="blk" id="hierarchie">
+  <h2 class="t">HIÉRARCHIE</h2><div class="rule"></div>
+  <p class="quote">« La hiérarchie doit être strictement respectée par l'ensemble des membres du Cabinet. »</p>
+  <ol class="ranks" id="ranks"></ol>
+ </section>
+
+ <section class="blk" id="informations">
+  <h2 class="t">INFORMATIONS</h2><div class="rule"></div>
+  <div class="info">
+   <div class="card"><h3>NATURE DU DOCUMENT</h3><p>Registre interne des protocoles du Cabinet O5-IV. Il fait foi pour tous ses membres.</p></div>
+   <div class="card"><h3>ACCÈS</h3><p>Réservé aux membres du Cabinet. Toute consultation hors de ce cadre est interdite.</p></div>
+   <div class="card"><h3>UTILISATION</h3><p>Ouvrez une section pour lire ses articles, ou utilisez la recherche pour en trouver un directement.</p></div>
+  </div>
+ </section>
+</main>
+
+<footer>
+ <h2>CABINET O5-IV</h2>
+ <p>REGISTRE DES PROTOCOLES OFFICIELS</p>
+ <p class="conf">CONFIDENTIEL — DOCUMENT INTERNE<br>TOUTE DIFFUSION NON AUTORISÉE EST INTERDITE.</p>
+</footer>
+
+<button id="top" aria-label="Revenir en haut de la page"><svg viewBox="0 0 24 24"><path d="M5 15l7-7 7 7"/></svg></button>
+
+<script>
+/* =====================================================================
+   CONTENU — modifiez uniquement cette zone pour changer le texte du site.
+   NOTE : les articles ci-dessous sont des TEXTES PROVISOIRES.
+   Remplacez-les par vos protocoles officiels (champs : n, titre, texte).
+   ===================================================================== */
+const GRADES = [
+ ["O5-IV","Autorité suprême du Cabinet. Détermine les orientations générales et tranche en dernier ressort."],
+ ["Factotum O5-IV","Représente directement l'O5-IV, relaie ses instructions et veille à leur exécution."],
+ ["Responsable du Cabinet","Dirige le fonctionnement quotidien du Cabinet et répond de son activité devant l'O5-IV."],
+ ["Sous-Responsable du Cabinet","Assiste le Responsable, le supplée en son absence et coordonne les équipes."],
+ ["Secrétaire Général du Cabinet","Tient le registre, assure la gestion administrative et la conservation des documents."],
+ ["Sous-Secrétaire Général du Cabinet","Seconde le Secrétaire Général dans la rédaction, l'archivage et le suivi des dossiers."],
+ ["Diplomate Superviseur","Encadre les diplomates, contrôle la qualité de leurs missions et rend compte à sa hiérarchie."],
+ ["Diplomate","Mène les missions diplomatiques confiées par le Cabinet dans le respect des protocoles."],
+ ["Apprenti Diplomate","Se forme auprès de ses supérieurs et intervient sous supervision directe."]
+];
+const SECTIONS = [
+ ["I","DISPOSITIONS GÉNÉRALES",[
+  [1,"Objet du registre","Le présent registre fixe les règles applicables à l'ensemble des membres du Cabinet O5-IV."],
+  [2,"Champ d'application","Les protocoles s'appliquent à tout membre, quel que soit son grade, dès son entrée en fonction."]]],
+ ["II","AUTORITÉ ET HIÉRARCHIE",[
+  [3,"Principe hiérarchique","Chaque membre obéit aux instructions régulières de son supérieur direct dans l'ordre des grades."],
+  [4,"Délégation","Une délégation d'autorité est écrite, limitée dans le temps et révocable à tout moment."]]],
+ ["III","PROTOCOLE DE CONDUITE",[
+  [5,"Comportement attendu","Tout membre agit avec rigueur, loyauté et respect envers ses pairs et sa hiérarchie."],
+  [6,"Tenue des échanges","Les échanges officiels restent courtois, précis et conformes au rang des interlocuteurs."]]],
+ ["IV","PROTOCOLE DE CONFIDENTIALITÉ",[
+  [7,"Secret des informations","Les informations du Cabinet ne sont communiquées qu'aux personnes habilitées à les connaître."],
+  [8,"Diffusion interdite","Toute diffusion non autorisée d'un document du Cabinet est interdite."]]],
+ ["V","PROTOCOLE DIPLOMATIQUE",[
+  [9,"Représentation","Seuls les membres mandatés engagent le Cabinet auprès d'une partie extérieure."],
+  [10,"Compte rendu","Chaque mission donne lieu à un compte rendu remis à la hiérarchie."]]],
+ ["VI","PROTOCOLE DE PRISE DE DÉCISION",[
+  [11,"Niveau de décision","Chaque décision relève du grade compétent ; les cas incertains remontent à l'échelon supérieur."],
+  [12,"Traçabilité","Toute décision importante est consignée au registre avec sa date et son auteur."]]],
+ ["VII","PROTOCOLE DISCIPLINAIRE",[
+  [13,"Manquements","Tout manquement aux protocoles peut donner lieu à une procédure disciplinaire."],
+  [14,"Droit d'être entendu","Le membre mis en cause est entendu avant toute sanction."]]],
+ ["VIII","PROTOCOLE D'ENQUÊTE INTERNE",[
+  [15,"Ouverture","Une enquête interne est ouverte sur décision de l'autorité compétente."],
+  [16,"Conduite de l'enquête","L'enquête est menée avec impartialité, et ses conclusions sont remises par écrit."]]],
+ ["IX","RECRUTEMENT ET PROMOTION",[
+  [17,"Admission","Toute admission au Cabinet est décidée par l'autorité habilitée après examen du dossier."],
+  [18,"Promotion","La promotion à un grade supérieur tient compte de l'ancienneté, du mérite et de la conduite."]]],
+ ["X","PROTOCOLE DE RÉUNION",[
+  [19,"Convocation","Les réunions sont convoquées par l'autorité compétente avec un ordre du jour."],
+  [20,"Procès-verbal","Chaque réunion fait l'objet d'un procès-verbal archivé au registre."]]],
+ ["XI","CONFLITS D'INTÉRÊTS",[
+  [21,"Déclaration","Tout membre déclare sans délai une situation susceptible de nuire à son impartialité."],
+  [22,"Retrait","Le membre concerné se retire du dossier jusqu'à décision de l'autorité compétente."]]],
+ ["XII","DISPOSITIONS FINALES",[
+  [23,"Modification","Le présent registre ne peut être modifié que par décision de l'O5-IV."],
+  [24,"Entrée en vigueur","Les protocoles entrent en vigueur dès leur inscription au registre."]]]
+];
+/* ===================== FIN DE LA ZONE DE CONTENU ===================== */
+
+const $=(s,r=document)=>r.querySelector(s), esc=t=>t.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const list=$("#list"), toc=$("#toc");
+
+GRADES.forEach(([n,d])=>{ $("#ranks").insertAdjacentHTML("beforeend",`<li class="rank"><h3>${esc(n.toUpperCase())}</h3><p>${esc(d)}</p></li>`) });
+
+SECTIONS.forEach(([r,name,arts])=>{
+  const id="section-"+r.toLowerCase();
+  toc.insertAdjacentHTML("beforeend",`<li><a href="#${id}" data-go="${id}"><span>SECTION ${r} : ${esc(name)}</span><small>${arts.length} art.</small></a></li>`);
+  list.insertAdjacentHTML("beforeend",`
+  <article class="sec" id="${id}">
+   <h3><button class="sec-btn" aria-expanded="false" aria-controls="${id}-p">
+    <span class="sec-name">SECTION ${r} : ${esc(name)}</span><span class="state">OUVERTE</span><span class="cnt">${arts.length} art.</span>
+    <svg class="chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button></h3>
+   <div class="panel" id="${id}-p" role="region"><div><div class="arts">
+    ${arts.map(([n,t,x])=>`<div class="art" data-n="${n}"><h4><b>Article ${n}</b>${esc(t)}</h4><p>${esc(x)}</p></div>`).join("")}
+   </div></div></div>
+  </article>`);
+});
+
+const secs=[...document.querySelectorAll(".sec")];
+const setOpen=(s,o)=>{s.classList.toggle("open",o);$(".sec-btn",s).setAttribute("aria-expanded",o)};
+secs.forEach(s=>$(".sec-btn",s).addEventListener("click",()=>setOpen(s,!s.classList.contains("open"))));
+$("#all").onclick=()=>secs.filter(s=>!s.classList.contains("hide")).forEach(s=>setOpen(s,true));
+$("#none").onclick=()=>secs.forEach(s=>setOpen(s,false));
+
+/* Sommaire : ouvre la section ciblée et y défile */
+toc.addEventListener("click",e=>{
+  const a=e.target.closest("a"); if(!a) return; e.preventDefault();
+  if($("#q").value){$("#q").value="";filter()}
+  const s=document.getElementById(a.dataset.go); setOpen(s,true);
+  s.scrollIntoView({behavior:"smooth",block:"start"}); try{history.replaceState(null,"","#"+a.dataset.go)}catch(_){}
+});
+
+/* Recherche */
+const original=new Map(); document.querySelectorAll(".art").forEach(a=>original.set(a,a.innerHTML));
+const norm=t=>t.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
+let saved=null;
+function filter(){
+  const raw=$("#q").value.trim(), q=norm(raw); $("#qx").style.display=raw?"block":"none";
+  if(q&&!saved) saved=secs.map(s=>s.classList.contains('open'));
+  let hits=0;
+  secs.forEach(s=>{
+    let any=false; const secHit=!!q&&norm($(".sec-name",s).textContent).includes(q);
+    s.querySelectorAll(".art").forEach(a=>{
+      a.innerHTML=original.get(a);
+      const ok=!q||secHit||norm(a.textContent).includes(q)||("article "+a.dataset.n)===q||a.dataset.n===q;
+      a.classList.toggle("hide",!ok);
+      if(ok&&q){any=true;hits++;
+        const re=new RegExp(raw.replace(/[.*+?^${}()|[\]\\]/g,"\\$&"),"gi");
+        a.querySelectorAll("h4,p").forEach(n=>{n.childNodes.forEach(c=>{
+          if(c.nodeType===3&&re.test(c.nodeValue)){const sp=document.createElement("span");sp.innerHTML=esc(c.nodeValue).replace(re,m=>`<mark>${m}</mark>`);c.replaceWith(sp)}
+          re.lastIndex=0})});
+      } else if(ok) any=true;
+    });
+    s.classList.toggle("hide",!any);
+    if(q) setOpen(s,any);
+  });
+  if(!q&&saved){secs.forEach((s,i)=>setOpen(s,saved[i]));saved=null}
+  $("#empty").style.display=q&&!hits?"block":"none";
+  $("#res").textContent=q?`${hits} article${hits>1?"s":""} trouvé${hits>1?"s":""}`:"12 sections";
+}
+$("#q").addEventListener("input",filter);
+$("#qx").onclick=()=>{$("#q").value="";filter();$("#q").focus()};
+
+/* Ouverture directe via l'adresse (#section-iv) */
+if(location.hash.startsWith("#section-")){const s=document.getElementById(location.hash.slice(1));if(s){setOpen(s,true);setTimeout(()=>s.scrollIntoView(),50)}}
+
+/* Menu mobile, lien actif, retour en haut */
+const burger=$(".burger"),menu=$("#menu");
+burger.onclick=()=>{const o=menu.classList.toggle("open");burger.setAttribute("aria-expanded",o)};
+menu.addEventListener("click",e=>{if(e.target.closest("a")){menu.classList.remove("open");burger.setAttribute("aria-expanded",false)}});
+const links=[...menu.querySelectorAll("a")], tops=$("#top");
+addEventListener("scroll",()=>{
+  tops.classList.toggle("show",scrollY>500);
+  let cur="#accueil";
+  links.forEach(a=>{const t=document.querySelector(a.getAttribute("href"));if(t&&t.getBoundingClientRect().top<140)cur=a.getAttribute("href")});
+  links.forEach(a=>a.classList.toggle("on",a.getAttribute("href")===cur));
+},{passive:true});
+tops.onclick=()=>scrollTo({top:0,behavior:"smooth"});
+</script>
+</body>
+</html>
