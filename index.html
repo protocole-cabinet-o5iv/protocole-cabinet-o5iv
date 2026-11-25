@@ -95,8 +95,20 @@ mark{background:#ecd9a0;color:inherit;padding:0 2px}
 .rank p{margin:0;font-size:15px;color:var(--mute)}
 .rank:first-child{border-left-color:var(--red);background:var(--black)}
 .rank:first-child h3{color:var(--gold-l)}.rank:first-child p{color:#bdb8aa}.rank:first-child::before{color:var(--gold-l)}
-@media(min-width:700px){.rank:nth-child(n){width:calc(100% - (var(--i,0)*22px));}
-.rank:nth-child(1){--i:0}.rank:nth-child(2){--i:0.5}.rank:nth-child(3){--i:1}.rank:nth-child(4){--i:1.5}.rank:nth-child(5){--i:2}.rank:nth-child(6){--i:2.5}.rank:nth-child(7){--i:3}.rank:nth-child(8){--i:3.5}.rank:nth-child(9){--i:4}}
+@media(min-width:700px){.rank{width:calc(100% - (var(--i,0)*22px))}}
+/* BRANCHES */
+.bintro{max-width:620px;margin:-8px auto 28px;text-align:center;color:var(--mute)}
+.branches{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
+.br{display:flex;flex-direction:column;gap:10px;background:var(--paper);border:1px solid var(--line);border-top:4px solid var(--ac);padding:22px;transition:transform .25s,box-shadow .25s}
+.br:hover{transform:translateY(-3px);box-shadow:0 10px 26px rgba(0,0,0,.08)}
+.br h3{margin:0;font:700 23px/1.2 var(--serif);letter-spacing:.05em;color:var(--ac)}
+.br .tag{margin:-4px 0 0;font:italic 500 16px var(--serif);color:var(--mute)}
+.br p{margin:0;font-size:15px}
+.br dl{margin:auto 0 0;padding-top:14px;border-top:1px solid var(--line);font-size:14px}
+.br dt{font-size:12px;font-weight:600;color:var(--mute);letter-spacing:.06em}
+.br dd{margin:0 0 10px;color:var(--ink)}
+.br dd a{color:var(--red);font-weight:600;text-decoration:none;border-bottom:1px solid var(--red);margin-right:6px;white-space:nowrap}
+.br dd a:hover{color:var(--black);border-color:var(--black)}
 /* INFOS */
 .info{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
 .card{background:var(--paper);border:1px solid var(--line);padding:22px}
@@ -166,6 +178,10 @@ footer .conf{margin-top:28px;padding-top:24px;border-top:1px solid #33353a;color
   <h2 class="t">HIÉRARCHIE</h2><div class="rule"></div>
   <p class="quote">« La hiérarchie doit être strictement respectée par l'ensemble des membres du Cabinet. »</p>
   <ol class="ranks" id="ranks"></ol>
+
+  <h2 class="t" id="branches-t" style="margin-top:80px">BRANCHES DU CABINET</h2><div class="rule"></div>
+  <p class="bintro">Sous l'autorité du Responsable du Cabinet, l'activité se répartit en cinq branches. Chacune a sa mission, sa direction et ses protocoles de référence. Les branches ne créent aucun grade : chaque membre conserve son rang.</p>
+  <div class="branches" id="branches"></div>
  </section>
 
  <section class="blk" id="informations">
@@ -199,9 +215,18 @@ const GRADES = [
  ["Sous-Responsable du Cabinet","Assiste le Responsable, le supplée en son absence et coordonne les équipes."],
  ["Secrétaire Général du Cabinet","Tient le registre, assure la gestion administrative et la conservation des documents."],
  ["Sous-Secrétaire Général du Cabinet","Seconde le Secrétaire Général dans la rédaction, l'archivage et le suivi des dossiers."],
+ ["État-Major","Corps des cadres supérieurs. Planifie et coordonne l'action des branches et conseille la direction du Cabinet."],
  ["Diplomate Superviseur","Encadre les diplomates, contrôle la qualité de leurs missions et rend compte à sa hiérarchie."],
  ["Diplomate","Mène les missions diplomatiques confiées par le Cabinet dans le respect des protocoles."],
  ["Apprenti Diplomate","Se forme auprès de ses supérieurs et intervient sous supervision directe."]
+];
+const BRANCHES = [
+ /* nom, devise, mission, direction, domaine, sections de référence, couleur */
+ ["La Chancellerie","Gardienne du registre","Tient le registre officiel, rédige et archive les actes du Cabinet, et veille à la conservation des documents.","Secrétaire Général du Cabinet","Registre, archives et actes officiels",["I","IV"],"#8a6a22"],
+ ["La Légation","Voix du Cabinet à l'extérieur","Représente le Cabinet auprès des parties extérieures et conduit les missions diplomatiques.","État-Major, avec les Diplomates Superviseurs","Relations et missions diplomatiques",["V"],"#7a1a1a"],
+ ["Le Sceau","Conscience et contrôle du Cabinet","Veille au respect des protocoles, mène les enquêtes internes et traite les manquements.","Sous-Responsable du Cabinet","Discipline, enquêtes internes, conflits d'intérêts",["VII","VIII","XI"],"#16171a"],
+ ["L'Académie","Formation et relève","Recrute, forme les apprentis et instruit les promotions à chaque grade.","Sous-Secrétaire Général du Cabinet","Recrutement, formation, promotions",["IX"],"#9a6b3a"],
+ ["Le Conclave","Table des décisions","Prépare et prend les décisions stratégiques du Cabinet et organise ses réunions officielles.","Responsable du Cabinet, avec le Factotum O5-IV","Décisions stratégiques et réunions",["II","VI","X"],"#3a3f45"]
 ];
 const SECTIONS = [
  ["I","DISPOSITIONS GÉNÉRALES",[
@@ -246,7 +271,7 @@ const SECTIONS = [
 const $=(s,r=document)=>r.querySelector(s), esc=t=>t.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const list=$("#list"), toc=$("#toc");
 
-GRADES.forEach(([n,d])=>{ $("#ranks").insertAdjacentHTML("beforeend",`<li class="rank"><h3>${esc(n.toUpperCase())}</h3><p>${esc(d)}</p></li>`) });
+GRADES.forEach(([n,d],i)=>{ $("#ranks").insertAdjacentHTML("beforeend",`<li class="rank" style="--i:${i*0.5}"><h3>${esc(n.toUpperCase())}</h3><p>${esc(d)}</p></li>`) });
 
 SECTIONS.forEach(([r,name,arts])=>{
   const id="section-"+r.toLowerCase();
@@ -262,15 +287,21 @@ SECTIONS.forEach(([r,name,arts])=>{
   </article>`);
 });
 
+BRANCHES.forEach(([nom,devise,mission,dir,dom,refs,col])=>{
+  const links=refs.map(r=>{const sc=SECTIONS.find(x=>x[0]===r);return sc?`<a href="#section-${r.toLowerCase()}" data-go="section-${r.toLowerCase()}" title="${esc(sc[1])}">Section ${r}</a>`:""}).join("");
+  $("#branches").insertAdjacentHTML("beforeend",`<article class="br" style="--ac:${col}"><h3>${esc(nom)}</h3><p class="tag">${esc(devise)}</p><p>${esc(mission)}</p>
+   <dl><dt>Direction</dt><dd>${esc(dir)}</dd><dt>Domaine</dt><dd>${esc(dom)}</dd><dt>Protocoles de référence</dt><dd>${links}</dd></dl></article>`);
+});
 const secs=[...document.querySelectorAll(".sec")];
+$("#res").textContent=SECTIONS.length+" sections";
 const setOpen=(s,o)=>{s.classList.toggle("open",o);$(".sec-btn",s).setAttribute("aria-expanded",o)};
 secs.forEach(s=>$(".sec-btn",s).addEventListener("click",()=>setOpen(s,!s.classList.contains("open"))));
 $("#all").onclick=()=>secs.filter(s=>!s.classList.contains("hide")).forEach(s=>setOpen(s,true));
 $("#none").onclick=()=>secs.forEach(s=>setOpen(s,false));
 
 /* Sommaire : ouvre la section ciblée et y défile */
-toc.addEventListener("click",e=>{
-  const a=e.target.closest("a"); if(!a) return; e.preventDefault();
+document.addEventListener("click",e=>{
+  const a=e.target.closest("a[data-go]"); if(!a) return; e.preventDefault();
   if($("#q").value){$("#q").value="";filter()}
   const s=document.getElementById(a.dataset.go); setOpen(s,true);
   s.scrollIntoView({behavior:"smooth",block:"start"}); try{history.replaceState(null,"","#"+a.dataset.go)}catch(_){}
@@ -302,7 +333,7 @@ function filter(){
   });
   if(!q&&saved){secs.forEach((s,i)=>setOpen(s,saved[i]));saved=null}
   $("#empty").style.display=q&&!hits?"block":"none";
-  $("#res").textContent=q?`${hits} article${hits>1?"s":""} trouvé${hits>1?"s":""}`:"12 sections";
+  $("#res").textContent=q?`${hits} article${hits>1?"s":""} trouvé${hits>1?"s":""}`:SECTIONS.length+" sections";
 }
 $("#q").addEventListener("input",filter);
 $("#qx").onclick=()=>{$("#q").value="";filter();$("#q").focus()};
