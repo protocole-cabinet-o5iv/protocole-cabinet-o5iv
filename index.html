@@ -109,6 +109,23 @@ mark{background:#ecd9a0;color:inherit;padding:0 2px}
 .br dd{margin:0 0 10px;color:var(--ink)}
 .br dd a{color:var(--red);font-weight:600;text-decoration:none;border-bottom:1px solid var(--red);margin-right:6px;white-space:nowrap}
 .br dd a:hover{color:var(--black);border-color:var(--black)}
+/* CHAÎNES */
+.tabs{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:24px}
+.tab{cursor:pointer;background:var(--paper);border:1px solid var(--line);padding:10px 20px;font:600 13px var(--sans);letter-spacing:.1em;color:var(--ink);border-radius:3px;transition:.2s}
+.tab:hover{border-color:var(--gold);color:var(--gold)}
+.tab[aria-selected=true]{background:var(--black);color:var(--gold-l);border-color:var(--black)}
+.path{display:flex;flex-wrap:wrap;gap:6px 8px;align-items:center;justify-content:center;margin:0 0 18px;font-size:13px}
+.path span{padding:4px 10px;border:1px solid var(--line);background:var(--paper)}
+.path i{color:var(--gold);font-style:normal}
+.pr{border-left:3px solid var(--red);background:#f1ece0;padding:12px 16px;margin-bottom:18px;font-size:15px}
+.role{background:var(--paper);border:1px solid var(--line);border-left:3px solid var(--gold-l);padding:22px;margin-bottom:12px;animation:fade .35s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.role h3{margin:0 0 12px;font:700 19px var(--serif);letter-spacing:.07em;color:var(--black)}
+.rl{display:grid;grid-template-columns:150px 1fr;gap:4px 18px;padding:10px 0;border-top:1px solid var(--line);font-size:15px}
+.rl b{font-size:12px;font-weight:600;color:var(--mute);letter-spacing:.06em;padding-top:2px}
+.rl ul{margin:0;padding-left:18px}.rl li{margin-bottom:3px}
+.rl.ok li::marker{color:var(--gold)}.rl.no li::marker{color:var(--red)}.rl.no b{color:var(--red)}
+@media(max-width:600px){.rl{grid-template-columns:1fr}}
 /* INFOS */
 .info{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
 .card{background:var(--paper);border:1px solid var(--line);padding:22px}
@@ -182,6 +199,11 @@ footer .conf{margin-top:28px;padding-top:24px;border-top:1px solid #33353a;color
   <h2 class="t" id="branches-t" style="margin-top:80px">BRANCHES DU CABINET</h2><div class="rule"></div>
   <p class="bintro">Sous l'autorité du Responsable du Cabinet, l'activité se répartit en cinq branches. Chacune a sa mission, sa direction et ses protocoles de référence. Les branches ne créent aucun grade : chaque membre conserve son rang.</p>
   <div class="branches" id="branches"></div>
+
+  <h2 class="t" id="chaines-t" style="margin-top:80px">CHAÎNES DE COMMANDEMENT</h2><div class="rule"></div>
+  <p class="bintro">Pour chaque corps : à qui chaque grade rend compte, sur qui il a autorité, ce qu'il peut faire et où ses pouvoirs s'arrêtent.</p>
+  <div class="tabs" id="tabs" role="tablist" aria-label="Choisir un corps"></div>
+  <div id="chain" role="tabpanel"></div>
  </section>
 
  <section class="blk" id="informations">
@@ -219,6 +241,31 @@ const GRADES = [
  ["Diplomate Superviseur","Encadre les diplomates, contrôle la qualité de leurs missions et rend compte à sa hiérarchie."],
  ["Diplomate","Mène les missions diplomatiques confiées par le Cabinet dans le respect des protocoles."],
  ["Apprenti Diplomate","Se forme auprès de ses supérieurs et intervient sous supervision directe."]
+];
+const CHAINES = [
+ {nom:"Corps diplomatique",
+  principe:"Chaque membre s'adresse uniquement à son supérieur direct et ne remonte que d'un échelon à la fois. En cas de doute sur l'étendue de ses pouvoirs, il s'abstient et interroge son supérieur.",
+  ordre:["Apprenti Diplomate","Diplomate","Diplomate Superviseur","État-Major"],
+  roles:[
+   {grade:"Diplomate Superviseur",ref:"État-Major",aut:"Les Diplomates et Apprentis Diplomates de sa mission",
+    peut:["Répartir et encadrer les missions de ses équipes","Valider les comptes rendus avant leur transmission à l'État-Major","Suspendre une mission en cours en cas de risque, en informant l'État-Major sans délai"],
+    non:["Engager le Cabinet sur une position nouvelle sans l'accord de l'État-Major","Conclure un accord définitif","Prononcer une sanction ou une promotion (relève du Sceau et de l'Académie)"]},
+   {grade:"Diplomate",ref:"Diplomate Superviseur",aut:"Les Apprentis Diplomates qui lui sont confiés (tutorat)",
+    peut:["Conduire les missions qui lui sont confiées par écrit","Représenter le Cabinet dans les limites de son mandat","Rédiger les comptes rendus de ses missions"],
+    non:["Agir au-delà de son mandat écrit","S'adresser directement à l'État-Major ou à la direction sans passer par son Superviseur","Signer un accord au nom du Cabinet"]},
+   {grade:"Apprenti Diplomate",ref:"Le Diplomate désigné comme référent, puis le Diplomate Superviseur",aut:"Aucune",
+    peut:["Assister aux missions et observer","Préparer des dossiers sous supervision","Poser toute question à son référent"],
+    non:["Représenter le Cabinet seul","Tenir un échange officiel sans l'accord préalable de son référent","Consulter d'autres dossiers que ceux qui lui sont remis"]}]},
+ {nom:"Secrétariat Général",
+  principe:"Le Secrétariat Général administre, enregistre et conserve. Il ne décide pas à la place de la direction du Cabinet et ne communique aucun document sans habilitation.",
+  ordre:["Sous-Secrétaire Général","Secrétaire Général","Sous-Responsable du Cabinet"],
+  roles:[
+   {grade:"Secrétaire Général du Cabinet",ref:"Sous-Responsable du Cabinet",aut:"Le Sous-Secrétaire Général et le personnel de la Chancellerie",
+    peut:["Tenir et certifier le registre des protocoles","Contrôler l'enregistrement et l'archivage de tous les actes","Délivrer copies et extraits aux personnes habilitées"],
+    non:["Modifier le contenu d'un protocole sans décision de l'autorité compétente","Décider des orientations du Cabinet ou prononcer une sanction","Communiquer un document à un tiers sans autorisation"]},
+   {grade:"Sous-Secrétaire Général du Cabinet",ref:"Secrétaire Général du Cabinet",aut:"Les agents et dossiers qui lui sont assignés, ainsi que l'Académie",
+    peut:["Rédiger, classer et suivre les dossiers","Suppléer le Secrétaire Général en son absence, pour la seule gestion courante","Diriger l'Académie (recrutement, formation, promotions)"],
+    non:["Certifier le registre ou délivrer des extraits sans délégation écrite","Prendre une décision engageant le Cabinet pendant une suppléance","Accéder aux dossiers d'enquête interne sans autorisation"]}]}
 ];
 const BRANCHES = [
  /* nom, devise, mission, direction, domaine, sections de référence, couleur */
@@ -292,6 +339,28 @@ BRANCHES.forEach(([nom,devise,mission,dir,dom,refs,col])=>{
   $("#branches").insertAdjacentHTML("beforeend",`<article class="br" style="--ac:${col}"><h3>${esc(nom)}</h3><p class="tag">${esc(devise)}</p><p>${esc(mission)}</p>
    <dl><dt>Direction</dt><dd>${esc(dir)}</dd><dt>Domaine</dt><dd>${esc(dom)}</dd><dt>Protocoles de référence</dt><dd>${links}</dd></dl></article>`);
 });
+const tabs=$("#tabs"),chain=$("#chain");
+CHAINES.forEach((c,i)=>tabs.insertAdjacentHTML("beforeend",`<button class="tab" role="tab" id="tab-${i}" aria-controls="chain" data-i="${i}">${esc(c.nom.toUpperCase())}</button>`));
+function showChain(i){
+  const c=CHAINES[i];
+  tabs.querySelectorAll(".tab").forEach((t,k)=>{t.setAttribute("aria-selected",k===i);t.tabIndex=k===i?0:-1});
+  chain.setAttribute("aria-labelledby","tab-"+i);
+  const ul=a=>"<ul>"+a.map(x=>`<li>${esc(x)}</li>`).join("")+"</ul>";
+  chain.innerHTML=`<div class="path" aria-label="Ordre hiérarchique, du plus bas au plus haut">${c.ordre.map(g=>`<span>${esc(g)}</span>`).join("<i>›</i>")}</div>
+   <p class="pr"><strong>Principe.</strong> ${esc(c.principe)}</p>`+
+   c.roles.map(r=>`<article class="role"><h3>${esc(r.grade.toUpperCase())}</h3>
+    <div class="rl"><b>Rend compte à</b><span>${esc(r.ref)}</span></div>
+    <div class="rl"><b>Autorité sur</b><span>${esc(r.aut)}</span></div>
+    <div class="rl ok"><b>Peut</b>${ul(r.peut)}</div>
+    <div class="rl no"><b>Ne peut pas</b>${ul(r.non)}</div></article>`).join("");
+}
+tabs.addEventListener("click",e=>{const t=e.target.closest(".tab");if(t)showChain(+t.dataset.i)});
+tabs.addEventListener("keydown",e=>{
+  if(e.key!=="ArrowRight"&&e.key!=="ArrowLeft")return;
+  const cur=+tabs.querySelector('[aria-selected="true"]').dataset.i,n=(cur+(e.key==="ArrowRight"?1:-1)+CHAINES.length)%CHAINES.length;
+  showChain(n);$("#tab-"+n).focus();
+});
+showChain(0);
 const secs=[...document.querySelectorAll(".sec")];
 $("#res").textContent=SECTIONS.length+" sections";
 const setOpen=(s,o)=>{s.classList.toggle("open",o);$(".sec-btn",s).setAttribute("aria-expanded",o)};
