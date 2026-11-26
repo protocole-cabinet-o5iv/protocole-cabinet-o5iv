@@ -201,7 +201,7 @@ footer .conf{margin-top:28px;padding-top:24px;border-top:1px solid #33353a;color
   <div class="branches" id="branches"></div>
 
   <h2 class="t" id="chaines-t" style="margin-top:80px">CHAÎNES DE COMMANDEMENT</h2><div class="rule"></div>
-  <p class="bintro">Pour chaque corps : à qui chaque grade rend compte, sur qui il a autorité, ce qu'il peut faire et où ses pouvoirs s'arrêtent.</p>
+  <p class="bintro">Pour chaque grade de la hiérarchie : à qui il rend compte, sur qui il a autorité, ce qu'il peut faire et où ses pouvoirs s'arrêtent.</p>
   <div class="tabs" id="tabs" role="tablist" aria-label="Choisir un corps"></div>
   <div id="chain" role="tabpanel"></div>
  </section>
@@ -243,6 +243,39 @@ const GRADES = [
  ["Apprenti Diplomate","Se forme auprès de ses supérieurs et intervient sous supervision directe."]
 ];
 const CHAINES = [
+ {nom:"Direction du Cabinet",
+  principe:"L'autorité descend de l'O5-IV vers les grades inférieurs. Un grade ne délègue que les pouvoirs qu'il détient, par écrit et pour une durée limitée. Toute décision importante est consignée au registre.",
+  ordre:["Sous-Responsable du Cabinet","Responsable du Cabinet","Factotum O5-IV","O5-IV"],
+  roles:[
+   {grade:"O5-IV",ref:"Aucun grade supérieur au sein du Cabinet",aut:"Tous les membres du Cabinet",
+    peut:["Fixer les orientations générales du Cabinet","Trancher en dernier ressort","Modifier le registre des protocoles","Nommer, promouvoir ou révoquer aux grades de direction"],
+    non:["Exercer lui-même la gestion quotidienne, confiée au Responsable du Cabinet","Écarter un protocole sans le modifier formellement au registre","Rendre une décision valable sans l'avoir consignée au registre"]},
+   {grade:"Factotum O5-IV",ref:"O5-IV",aut:"Les membres du Cabinet, uniquement dans le cadre d'une instruction écrite de l'O5-IV",
+    peut:["Relayer les instructions de l'O5-IV et veiller à leur exécution","Recueillir les comptes rendus destinés à l'O5-IV","Représenter l'O5-IV dans les réunions où il est mandaté"],
+    non:["Décider ou modifier un protocole en son nom propre","Compléter ou déformer une instruction de l'O5-IV","Transmettre une instruction sans trace écrite"]},
+   {grade:"Responsable du Cabinet",ref:"Factotum O5-IV",aut:"Tous les grades inférieurs, directement le Sous-Responsable et le Secrétaire Général",
+    peut:["Diriger le fonctionnement quotidien du Cabinet","Arbitrer entre les branches","Convoquer et présider le Conclave","Proposer les promotions à l'O5-IV"],
+    non:["Modifier les protocoles","Remplacer ou contredire une décision de l'O5-IV","Prononcer seul une sanction grave sans passage par le Sceau"]},
+   {grade:"Sous-Responsable du Cabinet",ref:"Responsable du Cabinet",aut:"Les grades inférieurs, en particulier le Secrétaire Général et l'État-Major",
+    peut:["Assister le Responsable et le suppléer en son absence","Coordonner les équipes des branches","Diriger le Sceau (contrôle, enquêtes internes)"],
+    non:["Décider au-delà de la gestion courante pendant une suppléance","Ouvrir une enquête visant un grade supérieur au sien sans ordre de l'O5-IV","Modifier les protocoles"]}]},
+ {nom:"Secrétariat Général",
+  principe:"Le Secrétariat Général administre, enregistre et conserve. Il ne décide pas à la place de la direction du Cabinet et ne communique aucun document sans habilitation.",
+  ordre:["Sous-Secrétaire Général","Secrétaire Général","Sous-Responsable du Cabinet"],
+  roles:[
+   {grade:"Secrétaire Général du Cabinet",ref:"Sous-Responsable du Cabinet",aut:"Le Sous-Secrétaire Général et le personnel de la Chancellerie",
+    peut:["Tenir et certifier le registre des protocoles","Contrôler l'enregistrement et l'archivage de tous les actes","Délivrer copies et extraits aux personnes habilitées"],
+    non:["Modifier le contenu d'un protocole sans décision de l'autorité compétente","Décider des orientations du Cabinet ou prononcer une sanction","Communiquer un document à un tiers sans autorisation"]},
+   {grade:"Sous-Secrétaire Général du Cabinet",ref:"Secrétaire Général du Cabinet",aut:"Les agents et dossiers qui lui sont assignés, ainsi que l'Académie",
+    peut:["Rédiger, classer et suivre les dossiers","Suppléer le Secrétaire Général en son absence, pour la seule gestion courante","Diriger l'Académie (recrutement, formation, promotions)"],
+    non:["Certifier le registre ou délivrer des extraits sans délégation écrite","Prendre une décision engageant le Cabinet pendant une suppléance","Accéder aux dossiers d'enquête interne sans autorisation"]}]},
+ {nom:"État-Major",
+  principe:"L'État-Major coordonne ; il ne remplace ni la direction ni les superviseurs. Ses ordres et ses informations circulent par la chaîne officielle, jamais en la contournant.",
+  ordre:["Diplomate Superviseur","État-Major","Sous-Responsable du Cabinet"],
+  roles:[
+   {grade:"État-Major",ref:"Sous-Responsable du Cabinet",aut:"Les Diplomates Superviseurs et, par eux, l'ensemble du corps diplomatique",
+    peut:["Planifier et coordonner l'action des branches","Conseiller la direction du Cabinet","Diriger la Légation","Valider les positions nouvelles soumises par les Diplomates Superviseurs","Ordonner la suspension d'une mission"],
+    non:["Conclure un accord engageant définitivement le Cabinet sans validation de la direction","Prononcer une sanction ou une promotion","Modifier les protocoles","Donner des ordres directs aux Diplomates sans passer par leurs Superviseurs"]}]},
  {nom:"Corps diplomatique",
   principe:"Chaque membre s'adresse uniquement à son supérieur direct et ne remonte que d'un échelon à la fois. En cas de doute sur l'étendue de ses pouvoirs, il s'abstient et interroge son supérieur.",
   ordre:["Apprenti Diplomate","Diplomate","Diplomate Superviseur","État-Major"],
@@ -255,17 +288,7 @@ const CHAINES = [
     non:["Agir au-delà de son mandat écrit","S'adresser directement à l'État-Major ou à la direction sans passer par son Superviseur","Signer un accord au nom du Cabinet"]},
    {grade:"Apprenti Diplomate",ref:"Le Diplomate désigné comme référent, puis le Diplomate Superviseur",aut:"Aucune",
     peut:["Assister aux missions et observer","Préparer des dossiers sous supervision","Poser toute question à son référent"],
-    non:["Représenter le Cabinet seul","Tenir un échange officiel sans l'accord préalable de son référent","Consulter d'autres dossiers que ceux qui lui sont remis"]}]},
- {nom:"Secrétariat Général",
-  principe:"Le Secrétariat Général administre, enregistre et conserve. Il ne décide pas à la place de la direction du Cabinet et ne communique aucun document sans habilitation.",
-  ordre:["Sous-Secrétaire Général","Secrétaire Général","Sous-Responsable du Cabinet"],
-  roles:[
-   {grade:"Secrétaire Général du Cabinet",ref:"Sous-Responsable du Cabinet",aut:"Le Sous-Secrétaire Général et le personnel de la Chancellerie",
-    peut:["Tenir et certifier le registre des protocoles","Contrôler l'enregistrement et l'archivage de tous les actes","Délivrer copies et extraits aux personnes habilitées"],
-    non:["Modifier le contenu d'un protocole sans décision de l'autorité compétente","Décider des orientations du Cabinet ou prononcer une sanction","Communiquer un document à un tiers sans autorisation"]},
-   {grade:"Sous-Secrétaire Général du Cabinet",ref:"Secrétaire Général du Cabinet",aut:"Les agents et dossiers qui lui sont assignés, ainsi que l'Académie",
-    peut:["Rédiger, classer et suivre les dossiers","Suppléer le Secrétaire Général en son absence, pour la seule gestion courante","Diriger l'Académie (recrutement, formation, promotions)"],
-    non:["Certifier le registre ou délivrer des extraits sans délégation écrite","Prendre une décision engageant le Cabinet pendant une suppléance","Accéder aux dossiers d'enquête interne sans autorisation"]}]}
+    non:["Représenter le Cabinet seul","Tenir un échange officiel sans l'accord préalable de son référent","Consulter d'autres dossiers que ceux qui lui sont remis"]}]}
 ];
 const BRANCHES = [
  /* nom, devise, mission, direction, domaine, sections de référence, couleur */
