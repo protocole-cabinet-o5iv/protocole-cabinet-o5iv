@@ -60,6 +60,12 @@ h2.t{font:700 26px var(--serif);letter-spacing:.14em;color:var(--gold);text-alig
 .tools button{background:none;border:1px solid var(--line);padding:6px 12px;cursor:pointer;font:600 12px var(--sans);letter-spacing:.1em;color:var(--ink);border-radius:3px;transition:.2s}
 .tools button:hover{border-color:var(--gold);color:var(--gold)}
 .empty{display:none;text-align:center;padding:28px;color:var(--mute);border:1px dashed var(--line)}
+.toc li.tg{padding:9px 22px;background:#f1ece0;font:600 11px var(--sans);letter-spacing:.22em;color:var(--red)}
+.gh{display:flex;align-items:center;gap:16px;margin:44px 0 18px;font:700 14px var(--sans);letter-spacing:.22em;color:var(--red);text-align:center}
+.gh::before,.gh::after{content:"";flex:1;height:1px;background:var(--line)}
+.grp:first-of-type .gh{margin-top:8px}
+.gsub{text-align:center;margin:-8px 0 18px;font:italic 500 16px var(--serif);color:var(--mute)}
+.art ul{margin:10px 0 0;padding-left:22px}.art li{margin-bottom:3px}.art li::marker{color:var(--gold)}
 /* ACCORDÉON */
 .sec{background:var(--paper);border:1px solid var(--line);border-left:3px solid transparent;margin-bottom:12px;transition:border-color .3s,box-shadow .3s}
 .sec.open{border-left-color:var(--red);box-shadow:0 8px 28px rgba(0,0,0,.06)}
@@ -187,7 +193,8 @@ footer .conf{margin-top:28px;padding-top:24px;border-top:1px solid #33353a;color
    <button id="qx" aria-label="Effacer la recherche">×</button>
   </div>
   <div class="tools"><span id="res">12 sections</span><span><button id="all">TOUT OUVRIR</button> <button id="none">TOUT FERMER</button></span></div>
-  <div id="list"></div>
+  <div class="grp" id="g-prot"><div class="gh" role="heading" aria-level="3">PROTOCOLES OFFICIELS</div><div id="list"></div></div>
+  <div class="grp" id="reglement"><div class="gh" role="heading" aria-level="3">RÈGLEMENT INTÉRIEUR DU CABINET O5-IV</div><p class="gsub">Fondation SCP. Document à usage interne et confidentiel.</p><div id="list-r"></div></div>
   <div class="empty" id="empty">Aucun article ne correspond à cette recherche.</div>
  </section>
 
@@ -209,7 +216,7 @@ footer .conf{margin-top:28px;padding-top:24px;border-top:1px solid #33353a;color
  <section class="blk" id="informations">
   <h2 class="t">INFORMATIONS</h2><div class="rule"></div>
   <div class="info">
-   <div class="card"><h3>NATURE DU DOCUMENT</h3><p>Registre interne des protocoles du Cabinet O5-IV. Il fait foi pour tous ses membres.</p></div>
+   <div class="card"><h3>NATURE DU DOCUMENT</h3><p>Registre interne des protocoles et règlement intérieur du Cabinet O5-IV. Il fait foi pour tous ses membres.</p></div>
    <div class="card"><h3>ACCÈS</h3><p>Réservé aux membres du Cabinet. Toute consultation hors de ce cadre est interdite.</p></div>
    <div class="card"><h3>UTILISATION</h3><p>Ouvrez une section pour lire ses articles, ou utilisez la recherche pour en trouver un directement.</p></div>
   </div>
@@ -264,7 +271,7 @@ const CHAINES = [
   ordre:["Sous-Secrétaire Général","Secrétaire Général","Sous-Responsable du Cabinet"],
   roles:[
    {grade:"Secrétaire Général du Cabinet",ref:"Sous-Responsable du Cabinet",aut:"Le Sous-Secrétaire Général et le personnel de la Chancellerie",
-    peut:["Tenir et certifier le registre des protocoles","Contrôler l'enregistrement et l'archivage de tous les actes","Délivrer copies et extraits aux personnes habilitées"],
+    peut:["Tenir et certifier le registre des protocoles","Contrôler l'enregistrement et l'archivage de tous les actes","Délivrer copies et extraits aux personnes habilitées","Modifier le règlement intérieur et en informer les membres (art. 25)","Autoriser ou refuser la promotion d'un autre projet, serveur ou communauté (art. 16)"],
     non:["Modifier le contenu d'un protocole sans décision de l'autorité compétente","Décider des orientations du Cabinet ou prononcer une sanction","Communiquer un document à un tiers sans autorisation"]},
    {grade:"Sous-Secrétaire Général du Cabinet",ref:"Secrétaire Général du Cabinet",aut:"Les agents et dossiers qui lui sont assignés, ainsi que l'Académie",
     peut:["Rédiger, classer et suivre les dossiers","Suppléer le Secrétaire Général en son absence, pour la seule gestion courante","Diriger l'Académie (recrutement, formation, promotions)"],
@@ -294,7 +301,7 @@ const BRANCHES = [
  /* nom, devise, mission, direction, domaine, sections de référence, couleur */
  ["La Chancellerie","Gardienne du registre","Tient le registre officiel, rédige et archive les actes du Cabinet, et veille à la conservation des documents.","Secrétaire Général du Cabinet","Registre, archives et actes officiels",["I","IV"],"#8a6a22"],
  ["La Légation","Voix du Cabinet à l'extérieur","Représente le Cabinet auprès des parties extérieures et conduit les missions diplomatiques.","État-Major, avec les Diplomates Superviseurs","Relations et missions diplomatiques",["V"],"#7a1a1a"],
- ["Le Sceau","Conscience et contrôle du Cabinet","Veille au respect des protocoles, mène les enquêtes internes et traite les manquements.","Sous-Responsable du Cabinet","Discipline, enquêtes internes, conflits d'intérêts",["VII","VIII","XI"],"#16171a"],
+ ["Le Sceau","Conscience et contrôle du Cabinet","Veille au respect des protocoles, mène les enquêtes internes et traite les manquements.","Sous-Responsable du Cabinet","Discipline, enquêtes internes, conflits d'intérêts",["VII","VIII","XI","t-VI","t-VII"],"#16171a"],
  ["L'Académie","Formation et relève","Recrute, forme les apprentis et instruit les promotions à chaque grade.","Sous-Secrétaire Général du Cabinet","Recrutement, formation, promotions",["IX"],"#9a6b3a"],
  ["Le Conclave","Table des décisions","Prépare et prend les décisions stratégiques du Cabinet et organise ses réunions officielles.","Responsable du Cabinet, avec le Factotum O5-IV","Décisions stratégiques et réunions",["II","VI","X"],"#3a3f45"]
 ];
@@ -333,8 +340,45 @@ const SECTIONS = [
   [21,"Déclaration","Tout membre déclare sans délai une situation susceptible de nuire à son impartialité."],
   [22,"Retrait","Le membre concerné se retire du dossier jusqu'à décision de l'autorité compétente."]]],
  ["XII","DISPOSITIONS FINALES",[
-  [23,"Modification","Le présent registre ne peut être modifié que par décision de l'O5-IV Ainsi que son factotum et les responsables du cabinet."],
+  [23,"Modification","Le présent registre ne peut être modifié que par décision de l'O5-IV."],
   [24,"Entrée en vigueur","Les protocoles entrent en vigueur dès leur inscription au registre."]]]
+];
+const REGLEMENT = [
+ /* RÈGLEMENT INTÉRIEUR : [numéro du titre, nom, [ [n°, titre, texte, (liste facultative)], ... ]] */
+ ["I","DISPOSITIONS GÉNÉRALES",[
+  [1,"Objet","Le présent règlement fixe les règles de fonctionnement et de conduite applicables à tous les membres du Cabinet O5-IV."],
+  [2,"Champ d'application","Il s'applique à chaque membre, quel que soit son grade, dès son entrée au sein du Cabinet. Nul ne peut l'ignorer : l'inscription au Cabinet vaut acceptation du règlement."],
+  [3,"Portée","Le règlement complète les protocoles officiels du Cabinet. En cas de contradiction, le protocole spécifique prévaut sur la règle générale."]]],
+ ["II","CONDUITE DES MEMBRES",[
+  [4,"Respect","Les membres se traitent avec courtoisie. Les insultes, provocations, moqueries et propos discriminatoires sont interdits, y compris en dehors des échanges officiels."],
+  [5,"Tenue des échanges","Les communications officielles sont rédigées dans un français correct et sur un ton neutre. Les salons sont utilisés pour leur usage prévu. Le hors-sujet y est toléré uniquement là où il est expressément autorisé."],
+  [6,"Désaccords","Un désaccord se règle d'abord entre les personnes concernées, puis auprès du supérieur hiérarchique. Il ne se règle jamais en public."],
+  [7,"Comportement attendu","Chaque membre veille à l'image du Cabinet. Tout comportement de nature à lui nuire peut être sanctionné, même s'il n'est pas expressément listé ici."]]],
+ ["III","HIÉRARCHIE ET AUTORITÉ",[
+  [8,"Chaîne de commandement","Chaque membre s'adresse en premier lieu à son supérieur direct. Court-circuiter la hiérarchie sans motif valable est interdit."],
+  [9,"Limites des pouvoirs","Un grade n'exerce que les prérogatives qui lui sont attribuées par les protocoles. Aucun membre ne peut s'attribuer, ni attribuer à un autre, une autorité qui dépasse son niveau."],
+  [10,"Exécution des ordres","Les directives régulières d'un supérieur sont appliquées. Un ordre contraire au présent règlement peut être contesté, par la voie hiérarchique et sans publicité."],
+  [11,"Abus d'autorité","Utiliser son grade à des fins personnelles, pour favoriser un proche ou pour sanctionner sans fondement constitue une faute grave."]]],
+ ["IV","CONFIDENTIALITÉ",[
+  [12,"Secret","Les décisions, délibérations et documents internes ne sont pas divulgués à des personnes extérieures au Cabinet."],
+  [13,"Captures et diffusion","Toute reproduction ou diffusion de contenus internes sans autorisation est interdite."],
+  [14,"Persistance","L'obligation de confidentialité continue de s'appliquer après le départ du membre."]]],
+ ["V","SÉCURITÉ ET INTÉGRITÉ",[
+  [15,"Usurpation","Se faire passer pour un autre membre ou pour un grade que l'on ne détient pas est interdit."],
+  [16,"Publicité et démarchage","La promotion d'un autre projet, serveur ou communauté est interdite sans accord préalable du Secrétariat Général."],
+  [17,"Contenus interdits","Sont proscrits les contenus illégaux, à caractère sexuel, violents ou choquants, ainsi que les liens douteux ou malveillants."],
+  [18,"Signalement","Tout membre témoin d'un manquement le signale à son supérieur. Un signalement de bonne foi ne peut pas donner lieu à des représailles."]]],
+ ["VI","SANCTIONS",[
+  [19,"Échelle des sanctions","Selon la gravité des faits, les sanctions sont :",["l'avertissement verbal ;", "l'avertissement écrit ;", "la suspension temporaire ;", "la rétrogradation ;", "l'exclusion définitive."]],
+  [20,"Proportionnalité","La sanction est adaptée à la faute, à sa répétition et aux circonstances. Une faute grave peut justifier une sanction sans passage par les degrés inférieurs."],
+  [21,"Compétence","Une sanction est prononcée par un membre d'un grade suffisant et doit être consignée. L'exclusion définitive est décidée à un niveau supérieur, selon les protocoles."],
+  [22,"Droit de s'expliquer","Avant toute sanction autre qu'un avertissement verbal, l'intéressé est entendu et peut présenter sa version des faits."]]],
+ ["VII","RECOURS",[
+  [23,"Contestation","Un membre sanctionné peut contester la décision dans un délai de sept jours à compter de sa notification, par écrit, auprès de l'instance supérieure à celle qui l'a prononcée."],
+  [24,"Examen","La contestation est examinée par une personne différente de celle qui a décidé. La réponse est motivée. La décision rendue à l'issue de l'examen est définitive."]]],
+ ["VIII","DISPOSITIONS FINALES",[
+  [25,"Modification","Le règlement peut être modifié par le Secrétariat Général. Les membres sont informés de toute modification, qui s'applique à compter de sa publication."],
+  [26,"Entrée en vigueur","Le présent règlement entre en vigueur à la date de sa publication."]]]
 ];
 /* ===================== FIN DE LA ZONE DE CONTENU ===================== */
 
@@ -343,22 +387,28 @@ const list=$("#list"), toc=$("#toc");
 
 GRADES.forEach(([n,d],i)=>{ $("#ranks").insertAdjacentHTML("beforeend",`<li class="rank" style="--i:${i*0.5}"><h3>${esc(n.toUpperCase())}</h3><p>${esc(d)}</p></li>`) });
 
-SECTIONS.forEach(([r,name,arts])=>{
-  const id="section-"+r.toLowerCase();
-  toc.insertAdjacentHTML("beforeend",`<li><a href="#${id}" data-go="${id}"><span>SECTION ${r} : ${esc(name)}</span><small>${arts.length} art.</small></a></li>`);
-  list.insertAdjacentHTML("beforeend",`
-  <article class="sec" id="${id}">
-   <h3><button class="sec-btn" aria-expanded="false" aria-controls="${id}-p">
-    <span class="sec-name">SECTION ${r} : ${esc(name)}</span><span class="state">OUVERTE</span><span class="cnt">${arts.length} art.</span>
-    <svg class="chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button></h3>
-   <div class="panel" id="${id}-p" role="region"><div><div class="arts">
-    ${arts.map(([n,t,x])=>`<div class="art" data-n="${n}"><h4><b>Article ${n}</b>${esc(t)}</h4><p>${esc(x)}</p></div>`).join("")}
-   </div></div></div>
-  </article>`);
-});
+function build(data,prefix,idp,host,label){
+  toc.insertAdjacentHTML("beforeend",`<li class="tg">${label}</li>`);
+  data.forEach(([r,name,arts])=>{
+    const id=idp+r.toLowerCase();
+    toc.insertAdjacentHTML("beforeend",`<li><a href="#${id}" data-go="${id}"><span>${prefix} ${r} : ${esc(name)}</span><small>${arts.length} art.</small></a></li>`);
+    host.insertAdjacentHTML("beforeend",`
+    <article class="sec" id="${id}">
+     <h3><button class="sec-btn" aria-expanded="false" aria-controls="${id}-p">
+      <span class="sec-name">${prefix} ${r} : ${esc(name)}</span><span class="state">OUVERTE</span><span class="cnt">${arts.length} art.</span>
+      <svg class="chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button></h3>
+     <div class="panel" id="${id}-p" role="region"><div><div class="arts">
+      ${arts.map(([n,t,x,it])=>`<div class="art" data-n="${n}"><h4><b>Article ${n}</b>${esc(t)}</h4><p>${esc(x)}</p>${it?"<ul>"+it.map(i=>`<li>${esc(i)}</li>`).join("")+"</ul>":""}</div>`).join("")}
+     </div></div></div>
+    </article>`);
+  });
+}
+build(SECTIONS,"SECTION","section-",list,"PROTOCOLES OFFICIELS");
+build(REGLEMENT,"TITRE","titre-",$("#list-r"),"RÈGLEMENT INTÉRIEUR");
+const LABEL=SECTIONS.length+" sections · "+REGLEMENT.length+" titres du règlement";
 
 BRANCHES.forEach(([nom,devise,mission,dir,dom,refs,col])=>{
-  const links=refs.map(r=>{const sc=SECTIONS.find(x=>x[0]===r);return sc?`<a href="#section-${r.toLowerCase()}" data-go="section-${r.toLowerCase()}" title="${esc(sc[1])}">Section ${r}</a>`:""}).join("");
+  const links=refs.map(r=>{const t=r.startsWith("t-"),k=t?r.slice(2):r,sc=(t?REGLEMENT:SECTIONS).find(x=>x[0]===k),id=(t?"titre-":"section-")+k.toLowerCase();return sc?`<a href="#${id}" data-go="${id}" title="${esc(sc[1])}">${t?"Titre":"Section"} ${k}</a>`:""}).join("");
   $("#branches").insertAdjacentHTML("beforeend",`<article class="br" style="--ac:${col}"><h3>${esc(nom)}</h3><p class="tag">${esc(devise)}</p><p>${esc(mission)}</p>
    <dl><dt>Direction</dt><dd>${esc(dir)}</dd><dt>Domaine</dt><dd>${esc(dom)}</dd><dt>Protocoles de référence</dt><dd>${links}</dd></dl></article>`);
 });
@@ -385,7 +435,7 @@ tabs.addEventListener("keydown",e=>{
 });
 showChain(0);
 const secs=[...document.querySelectorAll(".sec")];
-$("#res").textContent=SECTIONS.length+" sections";
+$("#res").textContent=LABEL;
 const setOpen=(s,o)=>{s.classList.toggle("open",o);$(".sec-btn",s).setAttribute("aria-expanded",o)};
 secs.forEach(s=>$(".sec-btn",s).addEventListener("click",()=>setOpen(s,!s.classList.contains("open"))));
 $("#all").onclick=()=>secs.filter(s=>!s.classList.contains("hide")).forEach(s=>setOpen(s,true));
@@ -415,7 +465,7 @@ function filter(){
       a.classList.toggle("hide",!ok);
       if(ok&&q){any=true;hits++;
         const re=new RegExp(raw.replace(/[.*+?^${}()|[\]\\]/g,"\\$&"),"gi");
-        a.querySelectorAll("h4,p").forEach(n=>{n.childNodes.forEach(c=>{
+        a.querySelectorAll("h4,p,li").forEach(n=>{n.childNodes.forEach(c=>{
           if(c.nodeType===3&&re.test(c.nodeValue)){const sp=document.createElement("span");sp.innerHTML=esc(c.nodeValue).replace(re,m=>`<mark>${m}</mark>`);c.replaceWith(sp)}
           re.lastIndex=0})});
       } else if(ok) any=true;
@@ -424,14 +474,15 @@ function filter(){
     if(q) setOpen(s,any);
   });
   if(!q&&saved){secs.forEach((s,i)=>setOpen(s,saved[i]));saved=null}
+  document.querySelectorAll(".grp").forEach(g=>g.classList.toggle("hide",!g.querySelector(".sec:not(.hide)")));
   $("#empty").style.display=q&&!hits?"block":"none";
-  $("#res").textContent=q?`${hits} article${hits>1?"s":""} trouvé${hits>1?"s":""}`:SECTIONS.length+" sections";
+  $("#res").textContent=q?`${hits} article${hits>1?"s":""} trouvé${hits>1?"s":""}`:LABEL;
 }
 $("#q").addEventListener("input",filter);
 $("#qx").onclick=()=>{$("#q").value="";filter();$("#q").focus()};
 
 /* Ouverture directe via l'adresse (#section-iv) */
-if(location.hash.startsWith("#section-")){const s=document.getElementById(location.hash.slice(1));if(s){setOpen(s,true);setTimeout(()=>s.scrollIntoView(),50)}}
+if(/^#(section|titre)-/.test(location.hash)){const s=document.getElementById(location.hash.slice(1));if(s){setOpen(s,true);setTimeout(()=>s.scrollIntoView(),50)}}
 
 /* Menu mobile, lien actif, retour en haut */
 const burger=$(".burger"),menu=$("#menu");
